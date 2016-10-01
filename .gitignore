@@ -1,7 +1,17 @@
-*.pyc
+*.sqlite3
+
+*.swp
+*.py[cio]
+
+*.DS_Store
+
+*/collected_static
+*/collected_static/*
+*/uploads/*
+
+*/__pycache__
+*/__pycache__/*
 
 secret.py
 
-*.sqlite3
-
-venv
+venv/
