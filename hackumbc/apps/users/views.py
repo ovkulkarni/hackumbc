@@ -1,9 +1,11 @@
 from django.conf import settings
 from django.contrib.auth import login, logout
+from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-from .forms import AuthenticateForm
+from .forms import AuthenticateForm, CreateUserForm
+from .models import User
 
 
 def login_view(request):
@@ -17,9 +19,25 @@ def login_view(request):
     else:
         form = AuthenticateForm()
     context = {"form": form}
-    return render(request, "auth/login.html", context)
+    return render(request, "show_form.html", context)
+
+
+def registration_view(request):
+    if request.method == "POST":
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            u = User.objects.create_user(username=form.cleaned_data.get("username"),
+                                         email=form.cleaned_data.get("email"),
+                                         first_name=form.cleaned_data.get("first_name"),
+                                         last_name=form.cleaned_data.get("last_name"),
+                                         password=form.cleaned_data.get("password"))
+            return redirect(reverse("login"))
+    else:
+        form = CreateUserForm()
+    context = {"form": form}
+    return render(request, "show_form.html", context)
 
 
 def logout_view(request):
     logout(request)
-    return redirect(reverse("login"))
+    return redirect(reverse("index"))

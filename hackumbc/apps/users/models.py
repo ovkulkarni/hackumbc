@@ -59,6 +59,14 @@ class User(AbstractBaseUser):
         return True
 
     @property
+    def full_name(self):
+        return self.get_full_name()
+
+    @property
+    def common_name(self):
+        return self.get_short_name()
+
+    @property
     def is_staff(self):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff

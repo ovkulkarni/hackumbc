@@ -121,7 +121,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-SITE_TITLE = "HackUMBC"
+SITE_TITLE = "Cash In!"
 
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static/'),

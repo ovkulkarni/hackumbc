@@ -8,12 +8,13 @@ body {
 
 .content {
     background: white;
-    height: 80%;
+    min-height: 80%;
     max-width: 600px;
     margin: auto;
     margin-top: 5%;
     margin-bottom: 5%;
     padding: 2%;
     border-radius: 10px;
+    word-wrap: break-word;
 
 }
