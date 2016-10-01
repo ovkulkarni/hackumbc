@@ -131,4 +131,4 @@ AUTH_USER_MODEL = 'users.User'
 
 LOGIN_URL = "/users/login/"
 
-from secret import *
+from .secret import *
