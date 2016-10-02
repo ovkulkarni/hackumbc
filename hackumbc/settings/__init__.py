@@ -26,9 +26,9 @@ PROJECT_ROOT = BASE_DIR
 SECRET_KEY = 's&d@wf$a5$=c!qu_t5j!e8^xoure_)8^6kho_my-1u(k9bls$s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
