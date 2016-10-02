@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 from tesserocr import PyTessBaseAPI
 from decimal import Decimal
@@ -12,7 +13,7 @@ from .forms import NewReceiptForm
 
 def read_receipt_text(image):
     with PyTessBaseAPI() as api:
-        api.setImageFile(image)
+        api.SetImageFile(image)
         return api.GetUTF8Text()
 
 
@@ -30,7 +31,9 @@ def create_new_receipt_view(request):
     if request.method == "POST":
         form = NewReceiptForm(request.POST, request.FILES)
         if form.is_valid():
-            r = form.save()
+            r = form.save(commit=False)
+            r.user = request.user
+            r.save()
             return redirect(reverse("edit_receipt", r.id))
     else:
         form = NewReceiptForm()
@@ -45,7 +48,7 @@ def edit_receipt_view(request, receipt_id):
     if request.method == "POST":
         for field in request.POST:
             if field.startswith("item"):
-                i = Item.objects.get(id=int(request.POST[field].split('-')[-1]))
+                i = Item.objects.get(id=int(request.POST[field]))
                 u = User.objects.get(username=request.POST["dueBy-{}".format(i.id)])
                 i.bought_by = request.user
                 i.bought_for = u

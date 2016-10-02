@@ -2,8 +2,9 @@
 
 {% block content %}
 <form method="POST">
+    {% csrf_token %}
     {% for item in items %}
-    <input type="hidden" name="item-{{ item.id }}" />
+    <input type="hidden" name="item-{{ item.id }}" value="{{ item.id }}"/>
     <div class="row">
       <div class="col-xs-12 col-md-8">{{ item.name }} - ${{ item.price }}</div>
       <div class="col-xs-6 col-md-4">
