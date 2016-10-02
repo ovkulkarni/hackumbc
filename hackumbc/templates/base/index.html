@@ -2,4 +2,17 @@
 
 {% block content %}
 <h1>{{ request.user.full_name }}</h1>
+<h2>My Receipts</h2>
+{% for receipt in request.user.receipts.all %}
+    <h3>Receipt {{ receipt.id }}</h3>
+    {% for item in receipt.items.all %}
+        <p>{{ item.name }} - {{ item.price }} - {{ item.bought_for.full_name }}</p>
+    {% endfor %}
+{% endfor %}
+<a href="{% url 'new_receipt' %} " class="btn btn-default" role="button">New Receipt</a>
+<h2>My Dues</h2>
+{% for item in request.user.dues.all %}
+    <p>{{ item.name }} - {{ item.price }} - {{ item.bought_for.full_name }}</p>
+{% endfor %}
+
 {% endblock %}
