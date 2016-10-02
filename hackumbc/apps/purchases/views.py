@@ -31,7 +31,7 @@ def is_float(value):
 def handle_receipt_text(text, receipt):
     items_list = []
     lines = text.split("\n")
-    END_WORDS = ["SUBTOTAL", "TAX", "TOTAL"]
+    END_WORDS = ["SUBTOTAL", "TAX", "TOTAL", "DEBIT", "CREDIT", "VISA", "MASTERCARD", "MASTER", "AMEX", "CASH"]
     COMPLETED = False
     for line in lines:
         if COMPLETED:
@@ -56,7 +56,6 @@ def handle_receipt_text(text, receipt):
         i.receipt = receipt
         i.name = item_name
         i.price = item_price
-        print(i)
         i.save()
         items_list.append(i)
     return items_list
@@ -94,8 +93,10 @@ def edit_receipt_view(request, receipt_id):
         if not receipt.items.all().count() > 0:
             items = handle_receipt_text(read_receipt_text(settings.MEDIA_ROOT + receipt.image.url), receipt)
             context["items"] = items
+            context["items_length"] = len(items)
         else:
             context["items"] = receipt.items.all()
+            context["items_length"] = context["items"].count()
         context["users"] = User.objects.all()
     return render(request, "purchases/handle_new_receipt.html", context)
 
@@ -103,13 +104,11 @@ def edit_receipt_view(request, receipt_id):
 @login_required
 def receipt_info_view(request, receipt_id):
     r = Receipt.objects.get(id=receipt_id)
-    if r.user is request.user or r.items.filter(bought_for=request.user).count() > 0:
-        total = 0.00
-        for item in receipt.items:
-            if r.user is request.user or item.bought_for is request.user:
-                total += item.price
-        context = {"receipt": r, "total": total}
-        return render(request, "purchases/receipt_info.html", context)
-    else:
-        messages.error(request, "Permission Denied")
-        return redirect(reverse("index"))
+    total = 0.00
+    for item in r.items.all():
+        if r.user is request.user:
+            total += float(item.price)
+        elif item.bought_for and item.bought_for.username == request.user.username:
+            total += float(item.price)
+    context = {"receipt": r, "total": total}
+    return render(request, "purchases/receipt_info.html", context)

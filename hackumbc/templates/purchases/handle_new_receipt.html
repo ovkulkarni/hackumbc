@@ -3,6 +3,11 @@
 {% block content %}
 <form method="POST">
     {% csrf_token %}
+    {% if items_length == 0 %}
+    <div class="alert alert-danger">
+        <h2>No Items Found - Unable to Read Receipt</h2>
+    </div>
+    {% endif %}
     {% for item in items %}
     <input type="hidden" name="item-{{ item.id }}" value="{{ item.id }}"/>
     <div class="row">

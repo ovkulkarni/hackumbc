@@ -1,0 +1,7 @@
+Cython==0.24.1
+Django==1.10.1
+gunicorn==19.6.0
+Pillow==3.3.1
+requests==2.11.1
+tesserocr==2.1.2
+whitenoise==3.2.2

@@ -39,6 +39,7 @@
               {% if request.user.is_authenticated %}
               <li role="presentation" {% if request.path == "/users/" %}class="active"{% endif %}><a href="{% url 'user_profile' %}">Profile</a></li>
               <li role="presentation" {% if request.path == "/receipts/new/" %}class="active"{% endif %}><a href="{% url 'new_receipt' %}">New Receipt</a></li>
+              <li role="presentation"><a href="{% url 'logout' %}">Logout</a></li>
               {% else %}
                   <li role="presentation" {% if request.path == "/users/login/" %}class="active"{% endif %}><a href="{% url 'login' %}">Login</a></li>
                   <li role="presentation" {% if request.path == "/users/register/" %}class="active"{% endif %}><a href="{% url 'register' %}">Register</a></li>
