@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
@@ -78,7 +78,7 @@ def create_new_receipt_view(request):
 
 @login_required
 def edit_receipt_view(request, receipt_id):
-    receipt = Receipt.objects.get(id=receipt_id)
+    receipt = get_object_or_404(Receipt, id=receipt_id)
     context = {"receipt": receipt}
     if request.method == "POST":
         for field in request.POST:
@@ -93,17 +93,19 @@ def edit_receipt_view(request, receipt_id):
         if not receipt.items.all().count() > 0:
             items = handle_receipt_text(read_receipt_text(settings.MEDIA_ROOT + receipt.image.url), receipt)
             context["items"] = items
-            context["items_length"] = len(items)
+            if len(items) == 0:
+                receipt.delete()
+                messages.error(request, "Unable to read receipt - No items found.")
+                return redirect(reverse("user_profile"))
         else:
             context["items"] = receipt.items.all()
-            context["items_length"] = context["items"].count()
         context["users"] = User.objects.all()
     return render(request, "purchases/handle_new_receipt.html", context)
 
 
 @login_required
 def receipt_info_view(request, receipt_id):
-    r = Receipt.objects.get(id=receipt_id)
+    r = get_object_or_404(Receipt, id=receipt_id)
     total = 0.00
     for item in r.items.all():
         if r.user is request.user:

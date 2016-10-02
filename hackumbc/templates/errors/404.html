@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<h1>Uh Oh!</h1>
+<img src="{% static 'images/not-found.png' %}" alt="Page Not Found" width="50%">
+<h2>The page you are looking for cannot be found. Check your URL, or return to the homepage.</h2>
+{% endblock %}

@@ -13,7 +13,6 @@ def login_view(request):
     if request.method == "POST":
         form = AuthenticateForm(data=request.POST)
         if form.is_valid():
-            print("Form is valid!")
             login(request, form.get_user())
             next_page = request.POST.get("next", request.GET.get("next", reverse("index")))
             messages.success(request, "Successfully Logged In!")

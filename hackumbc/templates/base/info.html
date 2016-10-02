@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block css %}
+{{ block.super }}
+<link href="//db.onlinewebfonts.com/c/3066b11123e63381b8e2aa554b18bf32?family=Bauhaus+93" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+<div style="margin: auto;">
+  <div class="row">
+  <br>
+  <span style="color: green; margin-left: 32.5%;  font-family: 'Bauhaus 93'; font-size: 80px;">About</span>
+  <hr>  
+  <h1 style="color: purple; margin-left: 30%;  font-family: 'Verdana'; font-size: 40px";>Instructions</h1>
+  </div>
+  <br>
+  <h4 align = "left"; style= "margin-left: 10%" > 
+        
+          <li> First create an account using our home page. </li>
+          <li> Add your friends and family to your account. </li>
+          <li> Scan your receipt(s) and assign who pays for what.  </li>
+          <li> View your dues and your own purchases. </li>
+          <li> Use our payment methods to settle your payments. </li>
+          <li> Repeat!</li>
+        
+  </h4>
+  
+  <div class="row">
+  </div>
+  <br>
+  <hr>
+  <h1 style="color: purple; margin-left: 40%;  font-family: 'Verdana'; font-size: 40px";>Vision</h1>
+  <br>
+  <p align="center" style = "margin-left: 2%; font-size: 16px">
+    Our web app is made for keeping track of shared purchases between family and friends. Our scanner analyzes your receipts and provides a list of the items bought and their prices. It then gives the user the option to assign a particular purchased good to another person, in cases where you might have bought groceries for someone else or perhaps lent someone some change. The other person can then see these items on their account profile and pay you back for the items using the payment options available.
+  </p>
+  <br>
+  <hr>
+  </p>
+  <div class = "row">
+  </div>
+</div>
+
+
+{% endblock %}

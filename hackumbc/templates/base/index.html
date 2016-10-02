@@ -22,13 +22,13 @@
     <a class="btn btn-success center-block btn-lg" style="max-width: 50%; padding: 10px;" href ="{% url 'user_profile' %}" >My Profile</a>
   {% else %}
      <a class="btn btn-success center-block btn-lg" style="max-width: 50%; padding: 10px;" href="{% url 'login' %}">Login</a>
+     <br />
+     <a class="btn btn-info center-block btn-lg" style="max-width: 50%; padding: 10px;" href="{% url 'register' %}">Register</a>
   {% endif %}
   </div>
   <br>
-  <br>
-  <br>
   <div class = "row">
-  <a class="btn btn-primary center-block btn-lg" style="max-width: 50%; padding: 10px;" href ="/info">More Info</a>
+  <a class="btn btn-primary center-block btn-lg" style="max-width: 50%; padding: 10px;" href ="{% url 'info' %}">More Info</a>
   </div>
 </div>
 

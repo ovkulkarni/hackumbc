@@ -10,4 +10,4 @@ class NewReceiptForm(forms.ModelForm):
 
     class Meta:
         model = Receipt
-        fields = ["image"]
+        fields = ["name", "image"]

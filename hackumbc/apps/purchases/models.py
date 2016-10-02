@@ -13,6 +13,7 @@ def user_directory_path(instance, filename):
 
 class Receipt(models.Model):
     user = models.ForeignKey(User, related_name="receipts", on_delete=models.CASCADE)
+    name = models.CharField(max_length=64)
     image = models.ImageField(upload_to=user_directory_path, null=True)
 
 

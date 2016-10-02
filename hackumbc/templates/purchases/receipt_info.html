@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block content %}
-    <h1>Receipt {{ receipt.id }} Info</h1>
+    <h1>Info: {{ receipt.name }}</h1>
     {% for item in receipt.items.all %}
         {% if request.user == receipt.user or request.user == item.bought_for %}
         <div class="{% if item.bought_by != request.user and item.bought_for == request.user %}alert alert-info{% else %}row{% endif %}">

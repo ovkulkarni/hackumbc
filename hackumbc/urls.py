@@ -22,3 +22,6 @@ urlpatterns = [
     url(r'^users/', include("hackumbc.apps.users.urls")),
     url(r'^receipts/', include('hackumbc.apps.purchases.urls')),
 ]
+
+handler404 = 'hackumbc.apps.errors.views.fourohfour_response_view'
+handler500 = 'hackumbc.apps.errors.views.fivehundred_response_view'

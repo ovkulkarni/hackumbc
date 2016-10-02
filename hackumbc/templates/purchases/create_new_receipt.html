@@ -10,11 +10,19 @@
     </div>
     {% endfor %}
     {% endif %}
-    <div class="form-group">
-        <label for="id_image">Picture Of Receipt</label>
-        <input id="id_image" name="image" type="file" accept="image/*;capture=camera" onchange="loadFile(event)">
-    </div>
+
     {% for field in form %}
+    {% if field.label != "Image" %}
+        <div class="form-group">
+            <label for="{{ field.id }}">{{ field.label }}</label>
+            {{ field }}
+        </div>
+    {% else %}
+        <div class="form-group">
+            <label for="id_image">Picture Of Receipt</label>
+            <input id="id_image" name="image" type="file" accept="image/*;capture=camera" onchange="loadFile(event)">
+        </div>
+    {% endif %}
     {% if field.errors %}
     <div class="row">
         <span class="text-danger">{% for error in field.errors %}{{ error }}{% endfor %}</span>
