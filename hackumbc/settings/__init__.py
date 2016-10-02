@@ -139,6 +139,6 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
 
-MEDIA_ROOT = PROJECT_ROOT + "/uploads/media/"
+MEDIA_ROOT = PROJECT_ROOT + "/static/uploads/media/"
 
 from .secret import *

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ request.user.full_name }}</h1>
+<h2>My Receipts</h2>
+{% for receipt in request.user.receipts.all %}
+    <h4><a href="{% url 'receipt_info' receipt.id %}">Receipt {{ receipt.id }}</a></h4>
+{% endfor %}
+<a href="{% url 'new_receipt' %} " class="btn btn-default" role="button">New Receipt</a>
+<h2>My Dues</h2>
+{% for receipt in receipts_due %}
+    <h4><a href="{% url 'receipt_info' receipt.id %}">Receipt {{ receipt.id }}</a></h4>
+{% endfor %}
+
+{% endblock %}

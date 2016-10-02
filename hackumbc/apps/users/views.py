@@ -22,6 +22,13 @@ def login_view(request):
     return render(request, "show_form.html", context)
 
 
+def profile_view(request):
+    my_dues = request.user.dues.exclude(bought_by=request.user)
+    receipts_for_dues = set([item.receipt for item in my_dues])
+    context = {"receipts_due": receipts_for_dues}
+    return render(request, "users/profile.html", context)
+
+
 def registration_view(request):
     if request.method == "POST":
         form = CreateUserForm(request.POST)

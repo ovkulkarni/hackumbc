@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.utils.text import slugify
+from django.contrib import messages
 
 from tesserocr import PyTessBaseAPI
 
@@ -88,13 +89,13 @@ def edit_receipt_view(request, receipt_id):
                 i.bought_by = request.user
                 i.bought_for = u
                 i.save()
-        return redirect(reverse("index"))
+        return redirect(reverse("user_profile"))
     else:
-        if not request.items.all().count() > 0:
+        if not receipt.items.all().count() > 0:
             items = handle_receipt_text(read_receipt_text(settings.MEDIA_ROOT + receipt.image.url), receipt)
             context["items"] = items
         else:
-            context["items"] = request.items.all()
+            context["items"] = receipt.items.all()
         context["users"] = User.objects.all()
     return render(request, "purchases/handle_new_receipt.html", context)
 
@@ -103,7 +104,12 @@ def edit_receipt_view(request, receipt_id):
 def receipt_info_view(request, receipt_id):
     r = Receipt.objects.get(id=receipt_id)
     if r.user is request.user or r.items.filter(bought_for=request.user).count() > 0:
-        context = {"receipt": r}
+        total = 0.00
+        for item in receipt.items:
+            if r.user is request.user or item.bought_for is request.user:
+                total += item.price
+        context = {"receipt": r, "total": total}
         return render(request, "purchases/receipt_info.html", context)
-    messages.error(request, "Permission Denied")
-    return redirect(reverse("index"))
+    else:
+        messages.error(request, "Permission Denied")
+        return redirect(reverse("index"))

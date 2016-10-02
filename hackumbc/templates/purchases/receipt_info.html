@@ -1,12 +1,18 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block content %}
     <h1>Receipt {{ receipt.id }} Info</h1>
     {% for item in receipt.items.all %}
         {% if request.user == receipt.user or request.user == item.bought_for %}
-        <div class="row">
-            <p>{{ item.name }} - {{ item.price }} - {{ item.bought_for.full_name }}</p>
+        <div class="{% if item.bought_by != request.user and item.bought_for == request.user %}alert alert-danger{% else %}row{% endif %}">
+            <p>{{ item.name }} - {{ item.price }} - {% if item.bought_by != request.user and item.bought_for == request.user %}{{ item.bought_by.full_name }}{% else %}{{ item.bought_for.full_name }}{% endif %}</p>
         </div>
         {% endif %}
     {% endfor %}
+    {% if request.user == receipt.user %}
+        <h2>Original Receipt</h2>
+        <img src="{% static 'uploads/media/' %}{{ receipt.image.url }}" />
+    {% endif %}
 {% endblock %}

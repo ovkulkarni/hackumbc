@@ -1,15 +1,36 @@
 {% extends "base.html" %}
 
+{% load static %}
+
+{% block css %}
+{{ block.super }}
+<link href="//db.onlinewebfonts.com/c/3066b11123e63381b8e2aa554b18bf32?family=Bauhaus+93" rel="stylesheet" type="text/css" />
+{% endblock %}
+
 {% block content %}
-<h1>{{ request.user.full_name }}</h1>
-<h2>My Receipts</h2>
-{% for receipt in request.user.receipts.all %}
-    <h3><a href="{% url 'receipt_info' receipt.id %}">Receipt {{ receipt.id }}</a></h3>
-{% endfor %}
-<a href="{% url 'new_receipt' %} " class="btn btn-default" role="button">New Receipt</a>
-<h2>My Dues</h2>
-{% for item in request.user.dues.all %}
-    <p>{{ item.name }} - {{ item.price }} - {{ item.bought_by.full_name }}</p>
-{% endfor %}
+<div style="margin: auto;">
+  <div class="row">
+  <br>
+  <img src="{% static 'images/logo.png' %}" width="31.5%" height="18.75%" style="margin-left: 5%; margin-bottom: 50px;" />
+  <span style="color: green; margin-left: 5%;  font-family: 'Bauhaus 93'; font-size: 80px;">CashIn!</span>
+  <br>
+  <br>
+  <br>
+  </div>
+  <div class="row">
+  {% if request.user.is_authenticated %}
+    <a class="btn btn-success center-block btn-lg" style="max-width: 50%; padding: 10px;" href ="{% url 'user_profile' %}" >My Profile</a>
+  {% else %}
+     <a class="btn btn-success center-block btn-lg" style="max-width: 50%; padding: 10px;" href="{% url 'login' %}">Login</a>
+  {% endif %}
+  </div>
+  <br>
+  <br>
+  <br>
+  <div class = "row">
+  <a class="btn btn-primary center-block btn-lg" style="max-width: 50%; padding: 10px;" href ="/info">More Info</a>
+  </div>
+</div>
+
 
 {% endblock %}
