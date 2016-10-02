@@ -6,6 +6,18 @@ body {
     background-image: url("/static/images/background.png");
 }
 
+@media screen and (max-width: 768px) {
+    .logo-text {
+         margin-left: 10%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .logo-text {
+         margin-left: 7%;
+    }
+}
+
 .content {
     background: white;
     min-height: 80%;
@@ -14,9 +26,8 @@ body {
     margin-top: 5%;
     margin-bottom: 5%;
     padding: 2%;
-    border-radius: 10px;
+    border-radius: 5px;
     word-wrap: break-word;
-
 }
 
 .wrap {
