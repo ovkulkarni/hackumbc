@@ -20,4 +20,5 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('hackumbc.apps.base.urls')),
     url(r'^users/', include("hackumbc.apps.users.urls")),
+    url(r'^receipts/', include('hackumbc.apps.purchases.urls')),
 ]

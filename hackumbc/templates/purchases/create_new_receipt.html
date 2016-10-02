@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+    <div class="alert alert-danger">
+        <p>{{ error }}</p>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <div class="form-group">
+        <label for="imageFileInput">Picture Of Receipt</label>
+        <input id="imageFileInput" type="file" accept="image/*;capture=camera" name="image">
+    </div>
+    {% for field in form %}
+    {% if field.errors %}
+    <span class="text-danger">{% for error in field.errors %}{{ error }}{% endfor %}</span>
+    {% endif %}
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

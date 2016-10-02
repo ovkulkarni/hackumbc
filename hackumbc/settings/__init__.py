@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'hackumbc.apps.base',
     'hackumbc.apps.users',
+    'hackumbc.apps.purchases',
 ]
 
 MIDDLEWARE = [
@@ -136,5 +138,7 @@ LOGIN_URL = "/users/login/"
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
+
+MEDIA_ROOT = PROJECT_ROOT + "/uploads/media/"
 
 from .secret import *

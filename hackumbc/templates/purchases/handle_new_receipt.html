@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="POST">
+    {% for item in items %}
+    <input type="hidden" name="item-{{ item.id }}" />
+    <div class="row">
+      <div class="col-xs-12 col-md-8">{{ item.name }} - ${{ item.price }}</div>
+      <div class="col-xs-6 col-md-4">
+        <select class="form-control" name="dueBy-{{ item.id }}">
+            {% for user in users %}
+            <option value="{{ user.username }}">{{ user.full_name }}</option>
+            {% endfor %}
+        </select>
+      </div>
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}
