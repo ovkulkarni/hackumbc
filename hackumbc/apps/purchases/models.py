@@ -23,3 +23,6 @@ class Item(models.Model):
     name = models.CharField(max_length=64)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     paid = models.BooleanField(default=False)
+
+    def __str__(self):
+        return "{} - {}".format(self.name, self.price)

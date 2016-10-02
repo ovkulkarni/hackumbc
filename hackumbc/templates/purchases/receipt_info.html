@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Receipt {{ receipt.id }} Info</h1>
+    {% for item in receipt.items.all %}
+        {% if request.user == receipt.user or request.user == item.bought_for %}
+        <div class="row">
+            <p>{{ item.name }} - {{ item.price }} - {{ item.bought_for.full_name }}</p>
+        </div>
+        {% endif %}
+    {% endfor %}
+{% endblock %}
